@@ -1,0 +1,22 @@
+{
+  "name": "rss-live",
+  "version": "0.0.0",
+  "dependencies": {
+    "jquery": "^2.1.1",
+    "react": "^0.12.1"
+  },
+  "devDependencies": {
+    "jshint-stylish": "~0.1.5",
+    "reactify": "^0.17.1"
+  },
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "scripts": {
+    "build-js:popup": "browserify -t reactify app/scripts/popup.js > dist/scripts/popup.js",
+    "build-js:background": "browserify app/scripts/background.js > dist/scripts/background.js",
+    "build-html:popup": "cat app/popup.html > dist/popup.html",
+    "build": "npm run build-html:popup & npm run build-js:popup & npm run build-js:background",
+    "watch": "watch \"npm run build\" app"
+  }
+}
