@@ -1,7 +1,5 @@
-/** @jsx React.DOM*/
-'use strict';
-
 var React = require("react"),
+    FeedInput = require("./feedinput.js"),
     $ = require("jquery");
 
 $(document).ready(function () {
