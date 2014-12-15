@@ -6,11 +6,17 @@
     "react": "^0.12.1"
   },
   "devDependencies": {
+    "jest-cli": "^0.2.1",
     "jshint-stylish": "~0.1.5",
+    "react-tools": "^0.12.1",
     "reactify": "^0.17.1"
   },
   "engines": {
     "node": ">=0.8.0"
+  },
+  "jest": {
+      "scriptPreprocessor": "app/scripts/preprocessor.js",
+      "unmockedModulePathPatterns": ["node_modules/react"]
   },
   "scripts": {
     "build-js:popup": "browserify -t reactify app/scripts/popup.js > dist/scripts/popup.js",
@@ -18,6 +24,7 @@
     "build-html:popup": "cat app/popup.html > dist/popup.html",
     "build-manifest": "cat app/manifest.json > dist/manifest.json",
     "build": "npm run build-html:popup & npm run build-js:popup & npm run build-js:background & npm run build-manifest",
+    "test": "jest",
     "watch": "watch \"npm run build\" app"
   }
 }
