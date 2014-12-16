@@ -2,6 +2,7 @@
   "name": "rss-live",
   "version": "0.0.0",
   "dependencies": {
+    "functional.js": "^0.6.7",
     "jquery": "^2.1.1",
     "react": "^0.12.1"
   },
