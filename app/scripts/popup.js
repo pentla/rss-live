@@ -1,5 +1,5 @@
 var React = require("react"),
-    FeedInput = require("./feedinput.js"),
+    FeedInput = require("./components/feedinput.js"),
     $ = require("jquery");
 
 $(document).ready(function () {
