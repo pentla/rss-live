@@ -34,9 +34,9 @@ function getFeedJson(feedUrl) {
 }
 
 function setFeedItems(feedJson) {
-    var feedUrl = feedJson.feed.feedUrl;
+    var feedTitle = feedJson.feed.title;
     var feedData = feedJson.feed;
-    var feedItem = R.assoc(feedUrl, feedData, {});
+    var feedItem = R.assoc("feeds", R.assoc(feedTitle, feedData, {}), {});
     console.log(feedItem);
     chrome.storage.local.set(feedItem);
 }
@@ -58,6 +58,6 @@ chrome.alarms.onAlarm.addListener(function (alarm) {
 });
 
 chrome.runtime.onInstalled.addListener(function () {
-    var alarmData = {"delayInMinutes": 0.0, "periodInMinutes": 5.0};
+    var alarmData = {"delayInMinutes": 0.0, "periodInMinutes": 15.0};
     chrome.alarms.create("feedRefresh", alarmData);
 });

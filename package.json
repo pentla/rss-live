@@ -2,7 +2,6 @@
   "name": "rss-live",
   "version": "0.0.0",
   "dependencies": {
-    "functional.js": "^0.6.7",
     "jquery": "^2.1.1",
     "ramda": "^0.8.0",
     "react": "^0.12.1"

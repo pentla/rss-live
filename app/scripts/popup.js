@@ -1,7 +1,6 @@
 var React = require("react"),
-    FeedInput = require("./components/feedinput.js"),
-    $ = require("jquery");
+    FeedInput = require("./components/feedinput.js");
 
-$(document).ready(function () {
+(function () {
     React.render(<FeedInput />, document.getElementById("app"));   
-});
+})();
