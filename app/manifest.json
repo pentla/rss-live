@@ -15,9 +15,7 @@
         "https://www.google.com/jsapi"
     ],
     "background": {
-        "scripts": [
-            "scripts/background.js"
-        ],
+        "page": "background.html",
         "persistent": false
     },
     "browser_action": {
@@ -29,5 +27,5 @@
         "default_popup": "popup.html"
     },
     "options_page": "options.html",
-    "content_security_policy": "script-src 'self' https://www.google.com/jsapi; object-src 'self'"
+    "content_security_policy": "script-src 'self' https://www.google.com/jsapi https://www.google.com/uds/?file=feeds&v=1; object-src 'self'"
 }

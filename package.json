@@ -4,6 +4,7 @@
   "dependencies": {
     "functional.js": "^0.6.7",
     "jquery": "^2.1.1",
+    "ramda": "^0.8.0",
     "react": "^0.12.1"
   },
   "devDependencies": {
@@ -16,8 +17,10 @@
     "node": ">=0.8.0"
   },
   "jest": {
-      "scriptPreprocessor": "app/scripts/preprocessor.js",
-      "unmockedModulePathPatterns": ["node_modules/react"]
+    "scriptPreprocessor": "app/scripts/preprocessor.js",
+    "unmockedModulePathPatterns": [
+      "node_modules/react"
+    ]
   },
   "scripts": {
     "build-js:popup": "browserify -t reactify app/scripts/popup.js > dist/scripts/popup.js",
