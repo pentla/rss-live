@@ -1,20 +1,16 @@
-var React = require("react");
+var React = require('react'),
+    utils = require('../utils.js');
 
 var FeedInput = React.createClass({
 
     handleSubmit: function (e) {
         e.preventDefault();
         var url = this.refs.url.getDOMNode().value.trim();
-        var urls;
-        chrome.storage.sync.get("urls", function (u) {
-            if (Object.keys(u).length === 0) {
-                urls = [];
-            } else {
-                urls = u.urls;
-            }
-            urls.push(url);
-            chrome.storage.sync.set({"urls": urls});
+        utils.updStorage('sync', 'urls', function (item) {
+            item.urls.push(url);
+            return item;
         });
+        this.refs.url.getDOMNode().value = "";
     },
 
     render: function() {
