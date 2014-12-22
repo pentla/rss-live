@@ -18,9 +18,10 @@
     "node": ">=0.8.0"
   },
   "jest": {
-    "scriptPreprocessor": "app/scripts/preprocessor.js",
+    "scriptPreprocessor": "preprocessor.js",
     "unmockedModulePathPatterns": [
-      "node_modules/react"
+      "node_modules/react",
+      "node_modules/ramda"
     ]
   },
   "browserify": {
