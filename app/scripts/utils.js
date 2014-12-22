@@ -36,12 +36,7 @@ var setStorage = R.curry(function (type, setter) {
 // Returns a promise to signal when finished
 var updStorage = R.curry(function (type, getter, fn) {
     return getStorage(type, getter)
-        .then(function (item) {
-            var promise = new Promise(function (resolve, reject) {
-                resolve(fn(item));
-            });
-            return promise;
-        })
+        .then(fn)
         .then(setStorage(type));
 });
 
