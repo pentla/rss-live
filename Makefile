@@ -16,7 +16,7 @@ all: $(chrome_js) $(chrome_html) $(manifest)
 $(chrome_js): $(utils_js) $(wildcard node_modules/*/package.json)
 
 $(popup): dist%: app% $(components_js)
-	browserify -t reactify $< > $@
+	browserify $< > $@
 
 $(filter-out $(popup),$(chrome_js)): dist%: app%
 	browserify $< > $@

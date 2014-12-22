@@ -7,6 +7,8 @@
     "react": "^0.12.1"
   },
   "devDependencies": {
+    "browserify": "^7.0.3",
+    "browserify-shim": "^3.8.1",
     "jest-cli": "^0.2.1",
     "jshint-stylish": "~0.1.5",
     "react-tools": "^0.12.1",
@@ -20,6 +22,12 @@
     "unmockedModulePathPatterns": [
       "node_modules/react"
     ]
+  },
+  "browserify": {
+      "transform": ["browserify-shim", "reactify"]
+  },
+  "browserify-shim": {
+      "chrome": "global:chrome"
   },
   "scripts": {
     "build-js:popup": "browserify -t reactify app/scripts/popup.js > dist/scripts/popup.js",

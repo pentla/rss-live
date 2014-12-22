@@ -1,5 +1,5 @@
 var R = require('ramda');
-var storage = chrome.storage;
+var storage = require('chrome').storage;
 
 // Returns true if object is empty
 function isEmpty(obj) {
