@@ -40,9 +40,23 @@ var updStorage = R.curry(function (type, getter, fn) {
         .then(setStorage(type));
 });
 
+// Adds a storage listener that will run fn on the the changed obj
+// if the storage type matches the desired storage area
+// Note: The changed obj takes the form:
+// {prop: {newValue: newData, oldValue: oldData}}
+var addStorageListener = function (type, prop, fn) {
+    storage.onChanged.addListener(function (changes, areaName) {
+        console.log('Changes: ', changes);
+        if (areaName === type && prop in changes) {
+            fn(changes[prop]);
+        }
+    });
+};
+
 module.exports = {
     isEmpty: isEmpty,
     getStorage: getStorage,
     setStorage: setStorage,
-    updStorage: updStorage
+    updStorage: updStorage,
+    addStorageListener: addStorageListener
 };
