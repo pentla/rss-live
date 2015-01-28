@@ -1,6 +1,6 @@
-var React = require("react"),
-    FeedInput = require("./components/feedinput.js");
+var React = require('react'),
+    App = require('./components/app.js');
 
 (function () {
-    React.render(<FeedInput />, document.getElementById("app"));   
+    React.render(<App />, document.getElementById('main'));   
 })();

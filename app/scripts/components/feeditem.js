@@ -5,7 +5,7 @@ var FeedItem = React.createClass({
     render: function() {
         return (
             <div className="feedItem">
-                {this.props.children}
+                {this.props.feed.title}
             </div>
         );
     }

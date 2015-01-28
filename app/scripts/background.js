@@ -1,4 +1,6 @@
-var R = require("ramda");
+var R = require('ramda'),
+    utils = require('./utils.js');
+
 google.load("feeds", "1");
 
 // Sets a promise that resolves then the google feeds load
@@ -9,13 +11,10 @@ var googleLoadPromise = new Promise(function (resolve, reject) {
     });
 });
 
-function getFeedUrls() {
-    var promise = new Promise(function (resolve, reject) {
-        chrome.storage.sync.get("urls", function (u) {
-            resolve(u.urls);
-        });
-    });
-    return promise;
+var getFeedUrls = utils.getStorage('sync', 'urls');
+
+function addSyncUrl(url) {
+    
 }
 
 function getFeedJson(feedUrl) {

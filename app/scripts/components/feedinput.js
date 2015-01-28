@@ -6,6 +6,7 @@ var FeedInput = React.createClass({
     handleSubmit: function (e) {
         e.preventDefault();
         var url = this.refs.url.getDOMNode().value.trim();
+        // Adds url the array of urls in chrome sync storage
         utils.updStorage('sync', 'urls', function (item) {
             item.urls.push(url);
             return item;

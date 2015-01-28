@@ -26,10 +26,9 @@ var FeedList = React.createClass({
 
     render: function() {
         var feedNodes = R.mapObj(function (feed) {
+            console.log(feed);
             return (
-                <FeedItem>
-                    {feed}
-                </FeedItem>
+                <FeedItem feed={feed} />
             );
         });
         return (
