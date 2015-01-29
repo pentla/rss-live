@@ -1,12 +1,13 @@
 var React = require('react'),
     R = require('ramda'),
+    log = require('loglevel'),
     EntryItem = require('./components/entryitem.js');
 
 var EntryList = React.createClass({
 
     render: function() {
         var entryItems = R.map(function (entry) {
-            console.log(entry);
+            log.debug(entry);
             return (
                 <EntryItem>
                     {entry.title}

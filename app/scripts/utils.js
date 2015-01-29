@@ -1,4 +1,5 @@
 var R = require('ramda');
+var log = require('loglevel');
 var storage = require('chrome').storage;
 
 // Returns true if object is empty
@@ -12,7 +13,8 @@ var getStorage = R.curry(function (type, getter) {
     var promise = new Promise(function (resolve, reject) {
         storage[type].get(getter, function (item) {
             if (isEmpty(item)) {
-                reject(Error("Cannot find: ", getter));
+                log.error(type, 'storage cannot find:', getter);
+                reject(Error('Cannot find: ', getter));
             } else {
                 resolve(item);
             }
@@ -25,6 +27,7 @@ var getStorage = R.curry(function (type, getter) {
 var setStorage = R.curry(function (type, setter) {
     var promise = new Promise(function (resolve, reject) {
         storage[type].set(setter, function () {
+            log.debug(type, 'storage set:', setter);
             resolve();
         });
     });
@@ -46,7 +49,7 @@ var updStorage = R.curry(function (type, getter, fn) {
 // {prop: {newValue: newData, oldValue: oldData}}
 var addStorageListener = function (type, prop, fn) {
     storage.onChanged.addListener(function (changes, areaName) {
-        console.log('Changes: ', changes);
+        log.debug(type, 'storage changes:', changes);
         if (areaName === type && prop in changes) {
             fn(changes[prop]);
         }
