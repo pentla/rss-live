@@ -28,7 +28,7 @@ $(manifest): dist%: app%
 	cp $< $@
 
 watch:
-	watch "$(MAKE) -j 4" app
+	npm run watch "$(MAKE) -j 4" app
 
 clean:
 	rm -f $(chrome_js) $(chrome_html) $(manifest)

@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "dependencies": {
     "jquery": "^2.1.1",
+    "loglevel": "^1.2.0",
     "ramda": "^0.8.0",
     "react": "^0.12.1"
   },
@@ -12,7 +13,8 @@
     "jest-cli": "^0.2.1",
     "jshint-stylish": "~0.1.5",
     "react-tools": "^0.12.1",
-    "reactify": "^0.17.1"
+    "reactify": "^0.17.1",
+    "watch": "^0.13.0"
   },
   "engines": {
     "node": ">=0.8.0"
@@ -25,10 +27,13 @@
     ]
   },
   "browserify": {
-      "transform": ["browserify-shim", "reactify"]
+    "transform": [
+      "browserify-shim",
+      "reactify"
+    ]
   },
   "browserify-shim": {
-      "chrome": "global:chrome"
+    "chrome": "global:chrome"
   },
   "scripts": {
     "build-js:popup": "browserify -t reactify app/scripts/popup.js > dist/scripts/popup.js",
@@ -37,6 +42,6 @@
     "build-manifest": "cp app/manifest.json dist/manifest.json",
     "build": "npm run build-html & npm run build-js:popup & npm run build-js:background & npm run build-manifest",
     "test": "jest",
-    "watch": "watch \"npm run build\" app"
+    "watch": "watch"
   }
 }
