@@ -1,4 +1,5 @@
 var React = require('react'),
+    FeedSearchBox = require('./feedsearchbox.js'),
     FeedList = require('./feedlist.js'),
     FeedInput = require('./feedinput.js');
 
@@ -9,8 +10,7 @@ var App = React.createClass({
     render: function() {
         return (
             <div className='app'>
-                <FeedList />
-                <FeedInput />
+                <FeedSearchBox />
             </div>
         );
     }

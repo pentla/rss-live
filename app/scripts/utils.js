@@ -1,10 +1,30 @@
 var R = require('ramda');
 var log = require('loglevel');
 var storage = require('chrome').storage;
+var runtime  = require('chrome').runtime;
 
 // Returns true if object is empty
 function isEmpty(obj) {
     return Object.keys(obj).length === 0;
+}
+
+// Sends a message out and returns a promise with the response to 
+// that message
+function sendMessage(message) {
+    var promise = new Promise(function (resolve, reject) {
+        log.debug('Sending message:', message);
+        runtime.sendMessage(message, function (response) {
+            log.debug('Sent message:', message, 'received response:', response);
+            resolve(response);
+        });
+    });
+    return promise;
+}
+
+// Returns a promise to an array of findFeed entries
+function searchFeeds(query) {
+    var queryObj = {type: 'feedSearch', data: query};
+    return sendMessage(queryObj);
 }
 
 // Gets and object from the storage and returns a promise for the value
@@ -13,7 +33,7 @@ var getStorage = R.curry(function (type, getter) {
     var promise = new Promise(function (resolve, reject) {
         storage[type].get(getter, function (item) {
             if (isEmpty(item)) {
-                log.error(type, 'storage cannot find:', getter);
+                log.warn(type, 'storage cannot find:', getter);
                 reject(Error('Cannot find: ', getter));
             } else {
                 resolve(item);
@@ -58,6 +78,7 @@ var addStorageListener = function (type, prop, fn) {
 
 module.exports = {
     isEmpty: isEmpty,
+    searchFeeds: searchFeeds,
     getStorage: getStorage,
     setStorage: setStorage,
     updStorage: updStorage,

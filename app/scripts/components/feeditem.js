@@ -3,10 +3,9 @@ var React = require('react');
 var FeedItem = React.createClass({
 
     render: function() {
+        console.log('feeditem props:', this.props);
         return (
-            <div className="feedItem">
-                {this.props.feed.title}
-            </div>
+            <div className="feedItem" dangerouslySetInnerHTML={{__html: this.props.feed.title}} />
         );
     }
 
