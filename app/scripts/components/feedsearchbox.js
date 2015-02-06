@@ -1,8 +1,8 @@
 var React = require('react'),
     log = require('loglevel'),
     utils = require('../utils.js'),
-    FeedList = require('./feedlist.js'),
-    FeedSearchForm = require('./feedsearchform');
+    EntryList = require('./entrylist.js'),
+    FeedSearchForm = require('./feedsearchform.js');
 
 var FeedSearchBox = React.createClass({
 
@@ -14,11 +14,9 @@ var FeedSearchBox = React.createClass({
 
     handleSearch: function (query) {
         var feedSearchBox = this;
-        var promise = utils.searchFeeds(query);
-        promise.then(function (searchResult) {
-            log.info('handleSearch feed search results:', searchResult);
+        utils.searchFeeds(query).then(function (searchResult) {
             feedSearchBox.setState(searchResult);
-            log.debug('New searchBox state:', feedSearchBox.state);
+            log.debug('New FeedSearchBox state:', feedSearchBox.state);
         });
     },
 
@@ -26,7 +24,7 @@ var FeedSearchBox = React.createClass({
         return (
             <div className='feedSearchBox'>
                 <FeedSearchForm handleSearch={this.handleSearch} />
-                <FeedList entries={this.state.entries} />
+                <EntryList entries={this.state.entries} />
             </div>
         );
     }
