@@ -19,7 +19,7 @@ var EntryItem = React.createClass({
 
     render: function() {
         log.debug('entry item props:', this.props);
-        var feed = this.props.feed;
+        var feed = this.props.children;
         var opts = this.props.options;
         var contentSnippet = <p dangerouslySetInnerHTML={{__html: feed.contentSnippet}} />
         return (
