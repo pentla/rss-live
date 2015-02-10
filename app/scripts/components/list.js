@@ -13,7 +13,7 @@ var List = React.createClass({
         log.debug('Data in List:', this.props.children);
         var {childElement: Item, children: data, ...passedProps} = this.props;
         var listItems = data.map(function (itemData, index) {
-            log.debug('List item data:', itemData);
+            log.debug('List item', index,' data:', itemData);
             try {
                 return (
                     <Item keu={index} {...passedProps} >{itemData}</Item>
