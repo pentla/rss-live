@@ -29,12 +29,12 @@ function searchFeeds(query) {
 
 // Gets and object from the storage and returns a promise for the value
 // Note: In order to get all data, null must be passed as the getter
-var getStorage = R.curry(function (type, getter) {
+var getStorage = R.curry(function (area, getter) {
     var promise = new Promise(function (resolve, reject) {
-        storage[type].get(getter, function (item) {
+        storage[area].get(getter, function (item) {
             if (isEmpty(item)) {
-                log.warn(type, 'storage cannot find:', getter);
-                reject(Error('Cannot find: ', getter));
+                log.warn(area, 'storage cannot find:', getter);
+                reject(Error('Cannot find: ', getter, 'in', area));
             } else {
                 resolve(item);
             }
@@ -44,10 +44,10 @@ var getStorage = R.curry(function (type, getter) {
 });
 
 // Sets the storage to setter and returns a promise to signal when finished
-var setStorage = R.curry(function (type, setter) {
+var setStorage = R.curry(function (area, setter) {
     var promise = new Promise(function (resolve, reject) {
-        storage[type].set(setter, function () {
-            log.debug(type, 'storage set:', setter);
+        storage[area].set(setter, function () {
+            log.debug(area, 'storage set:', setter);
             resolve();
         });
     });
@@ -57,20 +57,28 @@ var setStorage = R.curry(function (type, setter) {
 // Updates the chrome storage at value getter by applying
 // fn to the result of getting the getter
 // Returns a promise to signal when finished
-var updStorage = R.curry(function (type, getter, fn) {
-    return getStorage(type, getter)
-        .then(fn)
-        .then(setStorage(type));
+var updStorage = R.curry(function (area, getter, fn) {
+    return getStorage(area, getter)
+        .catch(function (error) {
+            log.debug(getter, 'does not exist in', area,
+                      'updating anyway');
+            return R.assoc(getter, '', {});
+        })
+        .then(function (item) {
+            var result = fn(item[getter])
+            return R.assoc(getter, result, {});
+        })
+        .then(setStorage(area));
 });
 
 // Adds a storage listener that will run fn on the the changed obj
-// if the storage type matches the desired storage area
+// if the storage area matches the desired storage area
 // Note: The changed obj takes the form:
 // {prop: {newValue: newData, oldValue: oldData}}
-var addStorageListener = function (type, prop, fn) {
+var addStorageListener = function (area, prop, fn) {
     storage.onChanged.addListener(function (changes, areaName) {
-        log.debug(type, 'storage changes:', changes);
-        if (areaName === type && prop in changes) {
+        log.debug(area, 'storage changes:', changes);
+        if (areaName === area && prop in changes) {
             fn(changes[prop]);
         }
     });

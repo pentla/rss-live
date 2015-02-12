@@ -6,13 +6,13 @@ var SearchResult = React.createClass({
 
     mixins: [FeedMixin],
 
-    getDefaultProps: function() {
-        return {
-            options: {
-                showContentSnippet: true,
-                headingButtons: '',
-            }
-        };
+    handleAdd: function () {
+        if (this.feed.url) {
+            log.info('SearchResult adding url:', this.feed.url);
+            this.props.handleAddFeed(this.feed.url);
+        } else {
+            log.warn('Search result does not have feed url:', this.feed);
+        }
     },
 
     render: function() {
@@ -20,6 +20,7 @@ var SearchResult = React.createClass({
         return (
             <div className='searchResult' >
                 <h1>{this.titleLink}</h1>
+                <button onClick={this.handleAdd}>Add</button>
                 {this.contentSnippet}
             </div>
         );
