@@ -1,7 +1,5 @@
 var React = require('react'),
-    FeedSearchBox = require('./feedsearchbox.js'),
-    FeedList = require('./feedlist.js'),
-    FeedInput = require('./feedinput.js');
+    FeedSearchBox = require('./search/searchbox.js');
 
 
 // Main entry point into rss live app

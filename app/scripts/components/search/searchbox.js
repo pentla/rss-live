@@ -1,9 +1,9 @@
 var React = require('react'),
     log = require('loglevel'),
-    utils = require('../utils.js'),
-    List = require('./list.js'),
+    utils = require('../../utils.js'),
+    List = require('../list.js'),
     SearchResult = require('./searchresult.js'),
-    FeedSearchForm = require('./feedsearchform.js');
+    FeedSearchForm = require('./searchform.js');
 
 var FeedSearchBox = React.createClass({
 

@@ -1,5 +1,5 @@
 var React = require('react'),
-    FeedMixin = require('./feedmixin.js'),
+    FeedMixin = require('../feedmixin.js'),
     log = require('loglevel');
 
 var SearchResult = React.createClass({

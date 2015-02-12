@@ -1,6 +1,6 @@
 var React = require('react'),
     log = require('loglevel'),
-    utils = require('../utils.js');
+    utils = require('../../utils.js');
 
 var FeedSearchForm = React.createClass({
 
