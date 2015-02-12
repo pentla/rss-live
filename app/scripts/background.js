@@ -13,7 +13,6 @@ var googleLoadPromise = new Promise(function (resolve, reject) {
     });
 });
 
-var getFeedUrls = utils.getStorage('sync', 'urls');
 
 function addSyncUrl(url) {
     
@@ -39,6 +38,10 @@ function executeSearch(query) {
         });
     });
     return promise;
+}
+
+var getFeedUrls = function () {
+    return utils.getStorage('sync', 'feedUrls');   
 }
 
 function getFeedJson(feedUrl) {
