@@ -14,12 +14,12 @@ var FeedMixin = {
     },
 
     componentWillMount: function() {
-        var feed = this.props.children;
-        this.titleLink = feed.title && feed.link ? 
-            <a dangerouslySetInnerHTML={{__html: feed.title}} href={feed.link} target='_new'/> :
+        this.feed = this.props.children;
+        this.titleLink = this.feed.title && this.feed.link ? 
+            <a dangerouslySetInnerHTML={{__html: this.feed.title}} href={this.feed.link} target='_new'/> :
             '';
-        this.contentSnippet = feed.contentSnippet ?
-            <p dangerouslySetInnerHTML={{__html: feed.contentSnippet}} /> :
+        this.contentSnippet = this.feed.contentSnippet ?
+            <p dangerouslySetInnerHTML={{__html: this.feed.contentSnippet}} /> :
             '';
     }
 
