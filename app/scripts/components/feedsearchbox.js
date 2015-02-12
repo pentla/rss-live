@@ -2,7 +2,7 @@ var React = require('react'),
     log = require('loglevel'),
     utils = require('../utils.js'),
     List = require('./list.js'),
-    EntryItem = require('./entryitem.js'),
+    SearchResult = require('./searchresult.js'),
     FeedSearchForm = require('./feedsearchform.js');
 
 var FeedSearchBox = React.createClass({
@@ -25,7 +25,10 @@ var FeedSearchBox = React.createClass({
         return (
             <div className='feedSearchBox'>
                 <FeedSearchForm handleSearch={this.handleSearch} />
-                <List childElement={EntryItem} >{this.state.entries}</List>
+                <List childElement={SearchResult}
+                    keyProp={'title'}>
+                    {this.state.entries}
+                </List>
             </div>
         );
     }

@@ -2,7 +2,7 @@ var React = require('react'),
     FeedMixin = require('./feedmixin.js'),
     log = require('loglevel');
 
-var EntryItem = React.createClass({
+var SearchResult = React.createClass({
 
     mixins: [FeedMixin],
 
@@ -16,14 +16,10 @@ var EntryItem = React.createClass({
     },
 
     render: function() {
-        log.debug('entry item props:', this.props);
-        var opts = this.props.options;
+        log.debug('SearchResult props:', this.props);
         return (
-            <div className="entryItem" >
-                <h1>
-                    {this.titleLink}
-                    {opts.headingButtons}
-                </h1>
+            <div className='searchResult' >
+                <h1>{this.titleLink}</h1>
                 {this.contentSnippet}
             </div>
         );
@@ -31,4 +27,4 @@ var EntryItem = React.createClass({
 
 });
 
-module.exports = EntryItem;
+module.exports = SearchResult;
