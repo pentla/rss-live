@@ -41,6 +41,7 @@ function executeSearch(query) {
 }
 
 var getFeedUrls = function () {
+    log.debug('Getting feed urls');
     return utils.getStorage('sync', 'feedUrls');   
 }
 
@@ -69,11 +70,11 @@ function setFeedItems(feedJson) {
 }
 
 function refreshFeeds() {
-    getAndSet = R.pPipe(getFeedJson, setFeedItems);
+    var updateFeeds = R.pPipe(getFeedJson, setFeedItems);
     googleLoadPromise
         .then(getFeedUrls)
-        .then(function (urls) {
-            R.forEach(getAndSet, urls);
+        .then(function (feedUrls) {
+            R.forEach(updateFeeds, feedUrls['feedUrls']);
         });
 }
 
