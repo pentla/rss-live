@@ -5,7 +5,7 @@ popup := $(lastword $(chrome_js))
 manifest := dist/manifest.json
 
 utils_js := app/scripts/utils.js
-components_js := $(wildcard app/scripts/components/*.js)
+components_js := $(wildcard app/scripts/components/**/*.js)
 
 $(warning $(chrome_html))
 
