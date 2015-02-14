@@ -10,10 +10,16 @@ var List = React.createClass({
         };
     },
 
-    render: function() {
+    makeListItems: function () {
         log.debug('Data in List:', this.props.children);
         var {childElement: Item, children: data, keyProp, ...passedProps} = this.props;
-        var listItems = data.map(function (itemData, index) {
+        if (data.constructor === Object) {
+            data = Object.keys(data).map(function (key) {
+                return data[key];
+            });
+        }
+
+        return data.map(function (itemData, index) {
             log.debug('List item', index,' data:', itemData);
             var key;
             if (itemData[keyProp]) {
@@ -31,7 +37,10 @@ var List = React.createClass({
                 log.warn('List could not make item:', error);
             }
         });
+    },
 
+    render: function() {
+        var listItems = this.makeListItems();
         return (
             <div className='list'>
                 {listItems}

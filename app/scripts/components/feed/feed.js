@@ -1,18 +1,19 @@
-var React = require('react');
+var React = require('react'),
+    FeedMixin = require('../feedmixin.js');
 
-var FeedItem = React.createClass({
+var Feed = React.createClass({
+
+    mixins: [FeedMixin],
 
     render: function() {
-        console.log('feeditem props:', this.props);
-        var body = this.props.feed.description ? this.props.feed.description : this.props.feed.contentSnippet;
         return (
-            <div className="feedItem" >
-                <h1 dangerouslySetInnerHTML={{__html: this.props.feed.title}} />
-                <p dangerouslySetInnerHTML={{__html: body}} />
+            <div className="feed" >
+                <h2>{this.titleLink}</h2>
+                <div className='feedActions'></div>
             </div>
         );
     }
 
 });
 
-module.exports = FeedItem;
+module.exports = Feed;

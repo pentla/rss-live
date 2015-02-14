@@ -1,43 +1,43 @@
 var React = require('react'),
     R = require('ramda'),
-    FeedItem = require('./feeditem.js'),
-    utils = require('../utils.js');
+    log = require('loglevel'),
+    Feed = require('./feed.js'),
+    List = require('../list.js'),
+    utils = require('../../utils.js');
 
-var FeedList = React.createClass({
+var FeedBox = React.createClass({
 
     getInitialState: function() {
         return {
-            data: {}
+            feeds: {}
         };
     },
 
-    onStorageChange: function (obj) {
-        console.log(obj.newValue);
-        this.setState({feeds: obj.newValue});
+    onStorageChange: function (feeds) {
+        log.debug('FeedBox: feeds storage changed:', feeds.newValue);
+        this.setState({feeds: feeds.newValue});
     },
 
     componentDidMount: function() {
-        var feedList = this;
-        utils.getStorage('local', 'feeds').then(function (obj) {
-            feedList.setState(obj);
+        var feedBox = this;
+        utils.getStorage('local', 'feeds').then(function (feeds) {
+            feedBox.setState(feeds);
         });
-        utils.addStorageListener('local', 'feeds', feedList.onStorageChange);
+        utils.addStorageListener('local', 'feeds', feedBox.onStorageChange);
     },
 
     render: function() {
-        var feedNodes = R.mapObj(function (feed) {
-            console.log(feed);
-            return (
-                <FeedItem feed={feed} />
-            );
-        });
         return (
-            <div className="feedList">
-                {feedNodes(this.state.feeds)}
+            <div className="feedBox">
+                <List childElement={Feed}
+                    keyProp={'title'}>
+                    {this.state.feeds}
+                </List>
+
             </div>
         );
     }
 
 });
 
-module.exports = FeedList;
+module.exports = FeedBox;
