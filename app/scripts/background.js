@@ -1,6 +1,7 @@
 var R = require('ramda'),
     log = require('loglevel'),
-    utils = require('./utils.js');
+    utils = require('./utils.js'),
+    chrome = require('chrome');
 
 google.load("feeds", "1");
 
@@ -86,7 +87,7 @@ chrome.alarms.onAlarm.addListener(function (alarm) {
 });
 
 chrome.runtime.onInstalled.addListener(function () {
-    var alarmData = {"delayInMinutes": 0.0, "periodInMinutes": 15.0};
+    var alarmData = {"delayInMinutes": 0.0, "periodInMinutes": 0.5};
     chrome.alarms.create("feedRefresh", alarmData);
 });
 

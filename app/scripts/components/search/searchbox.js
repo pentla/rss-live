@@ -29,8 +29,9 @@ var FeedSearchBox = React.createClass({
             } else if (feedUrls.indexOf(feedUrl) == -1) {
                 updatedFeedUrls = feedUrls.concat(feedUrl);
             } else {
-                log.warn('Url:', feedUrl, 'already in feedUrls');
-                throw new Error('handleAddFeed(): feed url already in feedUrls');
+                throw new Error('handleAddFeed(): url ' +
+                                feedUrl +
+                                ' already in feedUrls');
             }
             log.debug('FeedSearchBox updated urls:', updatedFeedUrls);
             return updatedFeedUrls;

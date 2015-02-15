@@ -1,7 +1,7 @@
-var R = require('ramda');
-var log = require('loglevel');
-var storage = require('chrome').storage;
-var runtime  = require('chrome').runtime;
+var R = require('ramda'),
+    log = require('loglevel'),
+    storage = require('chrome').storage,
+    runtime  = require('chrome').runtime;
 
 // Returns true if object is empty
 function isEmpty(obj) {
@@ -36,6 +36,7 @@ var getStorage = R.curry(function (area, getter) {
                 log.warn(area, 'storage cannot find:', getter);
                 reject(Error('Cannot find: ', getter, 'in', area));
             } else {
+                log.debug(area, 'storage resolving:', item);
                 resolve(item);
             }
         });
@@ -60,15 +61,18 @@ var setStorage = R.curry(function (area, setter) {
 var updStorage = R.curry(function (area, getter, fn) {
     return getStorage(area, getter)
         .catch(function (error) {
-            log.debug(getter, 'does not exist in', area,
-                      'updating anyway');
+            log.info(getter, 'does not exist in', 
+                     area, 'updating anyway');
             return R.assoc(getter, '', {});
         })
         .then(function (item) {
             var result = fn(item[getter])
             return R.assoc(getter, result, {});
         })
-        .then(setStorage(area));
+        .then(setStorage(area))
+        .catch(function (error) {
+            log.warn('updStorage:', error);
+        });
 });
 
 // Adds a storage listener that will run fn on the the changed obj
