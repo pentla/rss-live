@@ -1,5 +1,4 @@
-var R = require('ramda'),
-    log = require('loglevel'),
+var log = require('loglevel'),
     storage = require('./storage.js'),
     runtime  = require('chrome').runtime;
 
@@ -49,17 +48,6 @@ function setFeeds(feedData) {
 function addFeedListener(fn) {
    storage.addListener('local', 'feeds', fn);
 }
-
-// Sets the storage to setter and returns a promise to signal when finished
-var setStorage = R.curry(function (area, setter) {
-    var promise = new Promise(function (resolve, reject) {
-        storage[area].set(setter, function () {
-            log.debug(area, 'storage set:', setter);
-            resolve();
-        });
-    });
-    return promise;
-});
 
 module.exports = {
     isEmpty: isEmpty,

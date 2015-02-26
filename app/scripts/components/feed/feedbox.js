@@ -1,5 +1,4 @@
 var React = require('react'),
-    R = require('ramda'),
     log = require('loglevel'),
     Feed = require('./feed.js'),
     List = require('../list.js'),

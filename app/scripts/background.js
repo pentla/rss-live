@@ -1,5 +1,4 @@
-var R = require('ramda'),
-    log = require('loglevel'),
+var log = require('loglevel'),
     utils = require('./utils.js'),
     chrome = require('chrome');
 
@@ -13,11 +12,6 @@ var googleLoadPromise = new Promise(function (resolve, reject) {
         resolve();
     });
 });
-
-
-function addSyncUrl(url) {
-    
-}
 
 function searchFeeds(query) {
     return googleLoadPromise.then(function () {
@@ -61,16 +55,15 @@ function getFeedJson(feedUrl) {
 function setFeedItems(feedJson) {
     var title = feedJson.feed.title;
     var data = feedJson.feed;
-    var feeds = R.assoc(title, data, {});
-    utils.setFeeds(feeds);
+    utils.setFeeds({[title]: data});
 }
 
 function refreshFeeds() {
-    var updateFeeds = R.pPipe(getFeedJson, setFeedItems);
     googleLoadPromise
         .then(utils.getFeedUrls)
         .then(function (feedUrls) {
-            R.forEach(updateFeeds, feedUrls['feedUrls']);
+            feedUrls.feedUrls.forEach(feedUrl => 
+                                      getFeedJson(feedUrl).then(setFeedItems))
         })
         .catch(function (error) {
             if (error.name == 'TypeError') {
