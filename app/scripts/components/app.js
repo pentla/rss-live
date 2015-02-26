@@ -1,5 +1,5 @@
 var React = require('react'),
-    FeedSearchBox = require('./search/searchbox.js')
+    FeedSearchBox = require('./search/searchbox.js'),
     FeedBox = require('./feed/feedbox.js');
 
 

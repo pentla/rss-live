@@ -41,11 +41,6 @@ function executeSearch(query) {
     return promise;
 }
 
-var getFeedUrls = function () {
-    log.debug('Getting feed urls');
-    return utils.getStorage('sync', 'feedUrls');   
-}
-
 function getFeedJson(feedUrl) {
     log.info('feed url:', feedUrl);
     var promise = new Promise(function (resolve, reject) {
@@ -64,18 +59,25 @@ function getFeedJson(feedUrl) {
 }
 
 function setFeedItems(feedJson) {
-    var feedTitle = feedJson.feed.title;
-    var feedData = feedJson.feed;
-    var feedItem = R.assoc("feeds", R.assoc(feedTitle, feedData, {}), {});
-    utils.setStorage('local', feedItem);
+    var title = feedJson.feed.title;
+    var data = feedJson.feed;
+    var feeds = R.assoc(title, data, {});
+    utils.setFeeds(feeds);
 }
 
 function refreshFeeds() {
     var updateFeeds = R.pPipe(getFeedJson, setFeedItems);
     googleLoadPromise
-        .then(getFeedUrls)
+        .then(utils.getFeedUrls)
         .then(function (feedUrls) {
             R.forEach(updateFeeds, feedUrls['feedUrls']);
+        })
+        .catch(function (error) {
+            if (error.name == 'TypeError') {
+                log.debug('refreshFeeds: feedUrls is empty');
+            } else {
+                throw error;
+            }
         });
 }
 

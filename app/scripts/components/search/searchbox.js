@@ -22,7 +22,8 @@ var FeedSearchBox = React.createClass({
     },
 
     handleAddFeed: function (feedUrl) {
-        utils.updStorage('sync', 'feedUrls', function (feedUrls) {
+        utils.updateFeedUrls(function (feedUrls) {
+            log.debug('SearchBox: updating feed urls');
             var updatedFeedUrls;
             if (!feedUrls) {
                 updatedFeedUrls = [feedUrl];

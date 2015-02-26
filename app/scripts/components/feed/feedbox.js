@@ -20,10 +20,10 @@ var FeedBox = React.createClass({
 
     componentDidMount: function() {
         var feedBox = this;
-        utils.getStorage('local', 'feeds').then(function (feeds) {
+        utils.getFeeds().then(function (feeds) {
             feedBox.setState(feeds);
         });
-        utils.addStorageListener('local', 'feeds', feedBox.onStorageChange);
+        utils.addFeedListener(feedBox.onStorageChange);
     },
 
     render: function() {

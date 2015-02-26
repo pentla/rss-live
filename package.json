@@ -8,9 +8,10 @@
     "react": "^0.12.1"
   },
   "devDependencies": {
+    "babelify": "^5.0.3",
     "browserify": "^7.0.3",
     "browserify-shim": "^3.8.1",
-    "jest-cli": "^0.2.1",
+    "jest-cli": "^0.4.0",
     "jshint-stylish": "~0.1.5",
     "react-tools": "^0.12.1",
     "reactify": "^0.17.1",
@@ -28,8 +29,8 @@
   },
   "browserify": {
     "transform": [
-      "browserify-shim",
-      ["reactify", {"es6": true}]
+      ["babelify", {"experimental": "true"}],
+      "browserify-shim"
     ]
   },
   "browserify-shim": {

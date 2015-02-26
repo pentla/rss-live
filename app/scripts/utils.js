@@ -1,6 +1,6 @@
 var R = require('ramda'),
     log = require('loglevel'),
-    storage = require('chrome').storage,
+    storage = require('./storage.js'),
     runtime  = require('chrome').runtime;
 
 // Returns true if object is empty
@@ -27,22 +27,28 @@ function searchFeeds(query) {
     return sendMessage(queryObj);
 }
 
-// Gets and object from the storage and returns a promise for the value
-// Note: In order to get all data, null must be passed as the getter
-var getStorage = R.curry(function (area, getter) {
-    var promise = new Promise(function (resolve, reject) {
-        storage[area].get(getter, function (item) {
-            if (isEmpty(item)) {
-                log.warn(area, 'storage cannot find:', getter);
-                reject(Error('Cannot find: ', getter, 'in', area));
-            } else {
-                log.debug(area, 'storage resolving:', item);
-                resolve(item);
-            }
-        });
-    });
-    return promise;
-});
+function getFeedUrls() {
+    log.debug('Getting feed urls');
+    return storage.get('sync', 'feedUrls');   
+}
+
+function updateFeedUrls(fn) {
+    log.debug('Updating feed urls');
+    return storage.update('sync', 'feedUrls', fn);
+}
+
+function getFeeds() {
+    log.debug('Getting feeds');
+    return storage.get('local', 'feeds');
+}
+
+function setFeeds(feedData) {
+    return storage.set('local', {feeds: feedData});
+}
+
+function addFeedListener(fn) {
+   storage.addListener('local', 'feeds', fn);
+}
 
 // Sets the storage to setter and returns a promise to signal when finished
 var setStorage = R.curry(function (area, setter) {
@@ -55,44 +61,12 @@ var setStorage = R.curry(function (area, setter) {
     return promise;
 });
 
-// Updates the chrome storage at value getter by applying
-// fn to the result of getting the getter
-// Returns a promise to signal when finished
-var updStorage = R.curry(function (area, getter, fn) {
-    return getStorage(area, getter)
-        .catch(function (error) {
-            log.info(getter, 'does not exist in', 
-                     area, 'updating anyway');
-            return R.assoc(getter, '', {});
-        })
-        .then(function (item) {
-            var result = fn(item[getter])
-            return R.assoc(getter, result, {});
-        })
-        .then(setStorage(area))
-        .catch(function (error) {
-            log.warn('updStorage:', error);
-        });
-});
-
-// Adds a storage listener that will run fn on the the changed obj
-// if the storage area matches the desired storage area
-// Note: The changed obj takes the form:
-// {prop: {newValue: newData, oldValue: oldData}}
-var addStorageListener = function (area, prop, fn) {
-    storage.onChanged.addListener(function (changes, areaName) {
-        log.debug(area, 'storage changes:', changes);
-        if (areaName === area && prop in changes) {
-            fn(changes[prop]);
-        }
-    });
-};
-
 module.exports = {
     isEmpty: isEmpty,
     searchFeeds: searchFeeds,
-    getStorage: getStorage,
-    setStorage: setStorage,
-    updStorage: updStorage,
-    addStorageListener: addStorageListener
+    getFeedUrls: getFeedUrls,
+    updateFeedUrls: updateFeedUrls,
+    getFeeds: getFeeds,
+    setFeeds: setFeeds,
+    addFeedListener: addFeedListener
 };
