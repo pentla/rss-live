@@ -45,16 +45,25 @@ function setFeeds(feedData) {
     return storage.set('local', {feeds: feedData});
 }
 
+function updateFeed(feedTitle, feedData) {
+    return storage.update('local', 'feeds', feeds => {
+        log.debug('Setting', feedTitle, 'to', feedData, 'in', feeds);
+        feeds[feedTitle] = feedData;
+        return feeds;
+    });
+}
+
 function addFeedListener(fn) {
    storage.addListener('local', 'feeds', fn);
 }
 
 module.exports = {
-    isEmpty: isEmpty,
-    searchFeeds: searchFeeds,
-    getFeedUrls: getFeedUrls,
-    updateFeedUrls: updateFeedUrls,
-    getFeeds: getFeeds,
-    setFeeds: setFeeds,
-    addFeedListener: addFeedListener
+    isEmpty,
+    searchFeeds,
+    getFeedUrls,
+    updateFeedUrls,
+    getFeeds,
+    setFeeds,
+    updateFeed,
+    addFeedListener
 };

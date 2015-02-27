@@ -4,7 +4,7 @@ chrome_js := $(chrome_resources:%=dist/scripts/%.js)
 popup := $(lastword $(chrome_js))
 manifest := dist/manifest.json
 
-utils_js := app/scripts/utils.js
+utils_js := app/scripts/utils.js app/scripts/storage.js
 components_js := $(wildcard app/scripts/components/**/*.js) $(wildcard app/scripts/components/*.js)
 
 $(warning $(chrome_html))

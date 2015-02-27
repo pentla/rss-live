@@ -47,10 +47,10 @@ var update = function (area, getter, fn) {
         .then(function (item) {
             log.debug('Attempting to update', item);
             var result = fn(item[getter]);
-            log.debug('Updating', getter, 'to', result);
+            log.debug('Updating', getter, 'to', result, 'in', area);
             return {[getter]: result};
         })
-        .then(set(area))
+        .then(item => set(area, item))
         .catch(function (error) {
             log.warn(area, 'update storage:', error);
         });

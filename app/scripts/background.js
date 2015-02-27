@@ -52,18 +52,17 @@ function getFeedJson(feedUrl) {
     return promise;
 }
 
-function setFeedItems(feedJson) {
+function updateFeed(feedJson) {
     var title = feedJson.feed.title;
     var data = feedJson.feed;
-    utils.setFeeds({[title]: data});
+    utils.updateFeed(title, data);
 }
 
 function refreshFeeds() {
     googleLoadPromise
         .then(utils.getFeedUrls)
-        .then(function (feedUrls) {
-            feedUrls.feedUrls.forEach(feedUrl => 
-                                      getFeedJson(feedUrl).then(setFeedItems))
+        .then(({feedUrls}) => {
+            feedUrls.forEach(feedUrl => getFeedJson(feedUrl).then(updateFeed))
         })
         .catch(function (error) {
             if (error.name == 'TypeError') {
