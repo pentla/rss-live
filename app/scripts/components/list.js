@@ -12,7 +12,8 @@ var List = React.createClass({
 
     makeListItems: function () {
         log.debug('Data in List:', this.props.children);
-        var {childElement: Item, children: data, keyProp, ...passedProps} = this.props;
+        var {childElement: Item, children: data, keyProp, ...passedProps} =
+            this.props;
         if (data.constructor === Object) {
             data = Object.keys(data).map(function (key) {
                 return data[key];
