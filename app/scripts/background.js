@@ -25,6 +25,7 @@ function executeSearch(query) {
         google.feeds.findFeeds(query, function (result) {
             if (!result.error) {
                 log.debug('Feed search results:', result);
+                result.entries = result.entries.filter(entry => entry.url != '');
                 resolve(result);
             } else {
                 log.warn('Feed search query failed:', result.error);
