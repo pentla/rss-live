@@ -20,6 +20,10 @@ function sendMessage(message) {
     return promise;
 }
 
+function refreshFeeds(argument) {
+    return sendMessage({type: 'refreshFeeds'});
+}
+
 // Returns a promise to an array of findFeed entries
 function searchFeeds(query) {
     var queryObj = {type: 'feedSearch', data: query};
@@ -59,6 +63,7 @@ function addFeedListener(fn) {
 
 module.exports = {
     isEmpty,
+    refreshFeeds,
     searchFeeds,
     getFeedUrls,
     updateFeedUrls,

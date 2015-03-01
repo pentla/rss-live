@@ -93,6 +93,9 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
             sendResponse(searchResult);
             log.debug('Sent search results');
         });
+    } else if (request.type = 'refreshFeeds') {
+        refreshFeeds();
+        log.debug('Feeds refreshed');
     }
     return true;
 });
