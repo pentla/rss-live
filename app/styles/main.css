@@ -1,3 +1,66 @@
 body {
-  padding: 20px;
+    width: 25rem;
+    margin: 0;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+    font-weight: 300;
+    background: #fafafa;
+}
+
+.navbar {
+    position: relative;
+    background: #ff9800;
+    color: white;
+    font-weight: bold;
+    border-radius: 1px;
+    box-shadow: 0 1px 2px #aaa;
+    margin-bottom: 0.55rem;
+    padding: 0.75em;
+}
+
+.list > div {
+    margin: 0 0.25rem 0.25rem;
+    position: relative;
+    box-shadow: 0 1px 2px #aaa;
+    background: white;
+    font-size: 0.6rem;
+    border-radius: 1px;
+}
+
+a:link {
+    text-decoration: none;
+    color: black;
+}
+
+a:visited {
+    color: grey;
+}
+
+h2 {
+    margin: 0;
+    padding: 0.5rem 0.5rem 0.6rem;
+    cursor: pointer;
+}
+
+.feed h2 a {
+    color: black;
+    font-size: 0.7rem;
+}
+
+h2 img {
+    vertical-align: middle;
+}
+
+.feed div {
+    box-shadow: none;
+}
+
+.feed div a {
+    display: block;
+    border-top-style: solid;
+    border-top-color: lightgrey;
+    border-top-width: 1px;
+    padding: 0.35rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
