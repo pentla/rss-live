@@ -6,11 +6,7 @@ var FeedEntry = React.createClass({
     mixins: [FeedMixin],
 
     render: function() {
-        return (
-            <div className="feedEntry" >
-                {this.titleLink}
-            </div>
-        );
+        return this.titleLink;
     }
 
 });

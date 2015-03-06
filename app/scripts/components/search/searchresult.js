@@ -19,7 +19,7 @@ var SearchResult = React.createClass({
         log.debug('SearchResult props:', this.props);
         return (
             <div className='searchResult' >
-                <h1>{this.titleLink}</h1>
+                <h2>{this.titleLink}</h2>
                 <button onClick={this.handleAdd}>Add</button>
                 {this.contentSnippet}
             </div>
